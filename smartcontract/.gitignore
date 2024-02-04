@@ -1,0 +1,7 @@
+.idea
+#build
+.gitkeep
+package-lock.json
+
+# Project exclude paths
+/node_modules/

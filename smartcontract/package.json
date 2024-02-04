@@ -1,0 +1,19 @@
+{
+  "name": "drawnmint-smartcontract",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "compile": "truffle exec abi-create.js --compile"
+  },
+  "author": "DevConcof - Ahmet Ertaş",
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.0",
+    "chai": "^4.3.7",
+    "keccak256": "^1.0.6",
+    "merkletreejs": "^0.3.9",
+    "truffle": "^5.7.0",
+    "truffle-assertions": "^0.9.2",
+    "truffle-plugin-verify": "^0.6.1"
+  }
+}
