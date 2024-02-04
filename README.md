@@ -1,0 +1,2 @@
+# drawnmint
+ Draw'n Mint is a comprehensive Web3 project that allows users to paint predefined pictures online via a painting tool. After painting the picture, users can mint them into NFTs by connecting with an Ethereum wallet through a custom-built smart contract. The project includes a fully functioning website, web app, smart contract for managing NFTs, and a backend software managed by NodeJS for storage and management.
