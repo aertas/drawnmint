@@ -19,8 +19,10 @@ module.exports = async function (callback) {
         let rawdata = fs.readFileSync('build/contracts/DrawnMint.json');
         let sc = JSON.parse(rawdata);
         let data = JSON.stringify(sc.abi);
+        // To site
         fs.writeFileSync('../website/dapp/abi.json', data);
-        fs.writeFileSync('../website/web3/abi.json', data);
+        // To Api
+        fs.writeFileSync('../api/web3/abi.json', data);
 
         console.log("Contract Address:");
         console.log(contractInstance.address);

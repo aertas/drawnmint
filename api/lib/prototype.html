@@ -1,0 +1,211 @@
+<!--
+
+ ####     #####      ##     ##   ##      ##   ##  ##            ##   ##   ####    ##  ##   ######
+ ## ##    ##  ##    ####    ##   ##     ##    ### ##            ### ###    ##     ### ##     ##
+ ##  ##   ##  ##   ##  ##   ##   ##    ##     ######            #######    ##     ######     ##
+ ##  ##   #####    ######   ## # ##           ######            ## # ##    ##     ######     ##
+ ##  ##   ####     ##  ##   #######           ## ###            ##   ##    ##     ## ###     ##
+ ## ##    ## ##    ##  ##   ### ###           ##  ##            ##   ##    ##     ##  ##     ##
+ ####     ##  ##   ##  ##   ##   ##           ##  ##            ##   ##   ####    ##  ##     ##
+
+                                    by @DevConcof
+
+--><!doctype html>
+<html lang="en">
+<head>
+    <title>Draw'n Mint</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background: #fff;
+        }
+
+        canvas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            right: 0;
+            bottom: 0;
+            transform: translate(-50%, -50%);
+        }
+
+        #p5_loading {
+            color: #000;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+<script>
+    __P5HERE__
+    var workData = JSON.parse('__DATAHERE__'),
+        DEFAULT_SIZE = 1080,
+        WIDTH, HEIGHT, SIDE, AR, canvas,
+        alphaVal = '70', bgColor = '#fff',
+        apiBase = '__APIBASEHERE__',
+        firstAnimationCompleted = false,
+        img, logo, bg, x, y, fr = 60,
+        frameAnimMS = 1000 / fr, maxAnimTime = 10, animPlus = 1, playInterval, playingLineIndex, playingPointIndex;
+
+    function setupSize() {
+        if (windowWidth >= windowHeight) {
+            SIDE = windowHeight;
+            WIDTH = SIDE;
+            HEIGHT = SIDE;
+        } else {
+            SIDE = windowWidth;
+            WIDTH = SIDE;
+            HEIGHT = SIDE;
+        }
+        AR = SIDE / DEFAULT_SIZE;
+    }
+
+    function windowResized() {
+        setupSize();
+        resizeCanvas(WIDTH, HEIGHT);
+        clearInterval(playInterval);
+        playingLineIndex = 0;
+        playingPointIndex = 0;
+        //redraw();
+        if (firstAnimationCompleted) {
+            drawFinale();
+        } else {
+            play();
+        }
+    }
+
+    function preload() {
+        bg = loadImage(apiBase + '/assets/seasonone/' + workData.imgid + '-bg.png');
+        img = loadImage(apiBase + '/assets/seasonone/' + workData.imgid + '.png');
+        logo = loadImage(apiBase + '/assets/seasonone/logo.png');
+    }
+
+    function setup() {
+        setupSize();
+        frameRate(fr);
+        noLoop();
+        noFill();
+        canvas = createCanvas(WIDTH, HEIGHT);
+        strokeJoin(ROUND);
+        smooth();
+        play();
+    }
+
+    var drawFinale = () => {
+        background(bgColor);
+        push();
+        scale(AR);
+        image(bg, 0, 0, DEFAULT_SIZE, DEFAULT_SIZE);
+        push();
+
+        for (let i in workData.lines) {
+            stroke(workData.lines[i].hex + (workData.lines[i].hex === "#ffffff" ? "" : alphaVal));
+            strokeWeight(workData.lines[i].weight);
+            beginShape();
+            if (workData.lines[i].points[0] && workData.lines[i].points[0][0]) {
+                x = Number(workData.lines[i].points[0][0] * width);
+                y = Number(workData.lines[i].points[0][1] * height);
+                workData.lines[i].points.forEach(point => {
+                    x = Number(point[0] * DEFAULT_SIZE);
+                    y = Number(point[1] * DEFAULT_SIZE);
+                    vertex(x, y);
+                });
+            }
+            endShape();
+        }
+        pop()
+        image(img, 0, 0, DEFAULT_SIZE, DEFAULT_SIZE);
+        image(logo, WIDTH / HEIGHT > 0.6 ? 10 : ((WIDTH - 220) / 2), 10, 220, 128);
+        pop();
+    }
+
+    var drawFrame = () => {
+        background(bgColor);
+        push();
+        scale(AR);
+        image(bg, 0, 0, DEFAULT_SIZE, DEFAULT_SIZE);
+        push();
+        for (var pointMax, i = 0; i <= playingLineIndex; i++) {
+            pointMax = i < playingLineIndex ? workData.lines[i].points.length : playingPointIndex;
+            stroke(workData.lines[i].hex + (workData.lines[i].hex === "#ffffff" ? "" : alphaVal));
+            strokeWeight(workData.lines[i].weight);
+            beginShape();
+            for (var j = 0; j < pointMax; j++) {
+                if (j >= workData.lines[i].points.length) {
+                    playingLineIndex += 1;
+                    break;
+                }
+                if (workData.lines[i].points[j] && workData.lines[i].points[j][0]) {
+                    x = Number(workData.lines[i].points[j][0] * DEFAULT_SIZE);
+                    y = Number(workData.lines[i].points[j][1] * DEFAULT_SIZE);
+                    vertex(x, y);
+                }
+            }
+            endShape();
+        }
+        pop()
+
+        image(img, 0, 0, DEFAULT_SIZE, DEFAULT_SIZE);
+        image(logo, WIDTH / HEIGHT > 0.6 ? 10 : ((WIDTH - 220) / 2), 10, 220, 128);
+
+        /** Progress */
+        push();
+        stroke("#Ff4B4B");
+        strokeWeight(4);
+        var l = map(playingLineIndex, 0, workData.lines.length - 1, 0, DEFAULT_SIZE);
+        line(0, DEFAULT_SIZE - 2, l, DEFAULT_SIZE - 2);
+        pop();
+        pop();
+
+
+        var pointCount = workData.lines[playingLineIndex].points.length;
+        var addLineCount = 1;
+        playingPointIndex += animPlus;
+        if (playingPointIndex >= pointCount) {
+            playingPointIndex = 0;
+            addLineCount = 1;
+            var tempIndx = playingLineIndex + 1;
+            if (tempIndx < workData.lines.length && workData.lines[tempIndx].points.length < 5) {
+                addLineCount++;
+            }
+            playingLineIndex += addLineCount;
+        }
+
+        if (playingLineIndex >= workData.lines.length) {
+            firstAnimationCompleted = true;
+            playingLineIndex = 0;
+            playingPointIndex = 0;
+            clearInterval(playInterval);
+            drawFinale();
+        }
+    }
+
+    function play() {
+        playingLineIndex = 0;
+        playingPointIndex = 0;
+        var totalPointCount = workData.lines.length;
+        for (var i = 0; i < workData.lines.length; i++) {
+            workData.lines[i].points.forEach(() => {
+                totalPointCount++;
+            });
+        }
+        var totalMiliSeconds = maxAnimTime * 1000;
+        var intervalMiliSeconds = Math.min(Math.floor(totalMiliSeconds / totalPointCount), frameAnimMS);
+        if (intervalMiliSeconds < frameAnimMS) {
+            animPlus = (totalPointCount * frameAnimMS) / totalMiliSeconds;
+            intervalMiliSeconds = frameAnimMS;
+        }
+        playInterval = setInterval(drawFrame, intervalMiliSeconds);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "drawnmint-api",
+  "version": "1.0",
+  "description": "",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "author": "DevConcof - Ahmet Ertaş",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1293.0",
+    "body-parser": "^1.20.1",
+    "canvas": "^2.11.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "web3": "^1.7.4"
+  }
+}
