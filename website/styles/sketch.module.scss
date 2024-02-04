@@ -1,0 +1,541 @@
+.sketch {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.toolbar {
+  width: 96px;
+  padding: 6px;
+  position: absolute;
+  top: 0;
+  /*right: -5px;*/
+  transition: all 500ms ease-in;
+  right: 98px;
+  bottom: 6px;
+  background-color: #d5d5d5;
+  border: 1px solid #0a0a0a;
+  border-radius: 3px;
+  box-shadow: 1px 1px 5px 0 #0a0a0a;
+  z-index: 1;
+  align-content: space-between;
+  align-items: center;
+  @media (max-width: 850px) {
+    width: auto;
+    width: 320px;
+    margin: auto;
+    position: relative;
+  }
+
+}
+
+.btnRow {
+  display: flex;
+  @media (max-width: 850px) {
+    width: 83px;
+    gap: 3px;
+  }
+}
+
+.button {
+  padding: 0;
+  outline: 0;
+  background-color: #222222;
+  width: 34px;
+  height: 34px;
+  margin: 4px 3px 5px 3px;
+  border-radius: 3px;
+  border: 0 solid;
+  display: inline-block;
+
+  &.buttonRed, &.buttonBlue, &.buttonYellow, &.buttonGreen {
+    background: no-repeat center center;
+    background-size: 100%;
+    position: relative;
+
+    &:after {
+      content: "";
+      display: block;
+      opacity: 0;
+      position: absolute;
+      right: -3px;
+      top: -3px;
+      transition: opacity 200ms ease-in;
+      width: 8px;
+      height: 8px;
+      background: #a10404;
+      border-radius: 50%;
+
+    }
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &.buttonRed {
+    background-color: #d00d0d;
+    border-color: #6b1111;
+  }
+
+  &.buttonBlue {
+    background-color: #0b348d;
+    border-color: #13243a;
+  }
+
+  &.buttonYellow {
+    background-color: #ef9b1d;
+    border-color: #483805;
+  }
+
+  &.buttonGreen {
+    background-color: #21bb85;
+    border-color: #3b441f;
+  }
+
+  &.buttonPanelColor {
+    background: url("/images/paint.png") no-repeat center center #d00d0d;
+    background-size: 100%;
+    box-shadow: 1px 1px 2px rgba(20, 20, 20, 0.4);
+    cursor: pointer;
+    transition: transform 100ms ease-in;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+
+    &:after {
+      content: "";
+      display: block;
+      opacity: 0;
+      position: absolute;
+      right: -3px;
+      top: -3px;
+      transition: opacity 200ms ease-in;
+      /*
+      bottom: -9px;
+      left: 50%;
+      transform: translateX(-50%);
+      */
+      width: 8px;
+      height: 8px;
+      background: #a10404;
+      border-radius: 50%;
+
+    }
+  }
+}
+
+
+.sep {
+  margin: 10px auto;
+  padding: 0;
+  width: 60px;
+  border: none;
+  height: 1px;
+  background-image: linear-gradient(to right, transparent, #9b9b9b, transparent);
+  @media (max-width: 850px) {
+    display: none;
+  }
+}
+
+.btnErase {
+  padding: 0;
+  outline: 0;
+  width: 32px;
+  height: 32px;
+  margin: 2px 3px 3px 3px;
+  display: inline-block;
+  border: 0;
+  background: #fff url("/images/erase.png") no-repeat center center;
+  background-size: 100%;
+  position: relative;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: 1px 1px 2px rgba(20, 20, 20, 0.4);
+
+  transition: transform 100ms ease-in;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    opacity: 0;
+    position: absolute;
+    right: -3px;
+    top: -3px;
+    /*
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    */
+    width: 8px;
+    height: 8px;
+    background: #a10404;
+    border-radius: 50%;
+    transition: opacity 200ms ease-in;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.btnUndo {
+  padding: 0;
+  outline: 0;
+  width: 32px;
+  height: 32px;
+  margin: 2px 3px 3px 3px;
+  border-radius: 3px;
+  display: inline-block;
+  border: 0;
+  background: #fff url("/images/undo.png") no-repeat center center;
+  box-shadow: 1px 1px 2px rgba(20, 20, 20, 0.4);
+  background-size: 70%;
+  cursor: pointer;
+  transition: transform 100ms ease-in;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.btnSave {
+  padding: 0;
+  outline: 0;
+  width: 32px;
+  height: 32px;
+
+  border-radius: 100%;
+
+  margin: 4px 3px 5px 3px;
+  display: inline-block;
+
+  border: 0;
+  background: #fff url("/images/save.png") no-repeat center center;
+  box-shadow: 1px 1px 2px rgba(20, 20, 20, 0.4);
+  background-size: 70%;
+  cursor: pointer;
+  transition: transform 100ms ease-in;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+  @media (max-width: 850px) {
+    position: absolute;
+    top: 46px;
+    left: 88px;
+  }
+}
+
+.btnPlay {
+  padding: 0;
+  outline: 0;
+  width: 32px;
+  height: 32px;
+
+  border-radius: 100%;
+
+  margin: 4px 3px 5px 3px;
+  display: inline-block;
+  border: 0;
+  background: #fff url("/images/play.png") no-repeat 5px 5px;
+  box-shadow: 1px 1px 2px rgba(20, 20, 20, 0.4);
+  background-size: 70%;
+  cursor: pointer;
+  transition: transform 100ms ease-in;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.btnNext, .btnPrev, .btnRandom {
+  padding: 0;
+  outline: 0;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 10px auto;
+  border-radius: 100%;
+
+  display: block;
+  border: 0;
+  background: #fff url("/images/next.png") no-repeat 6px 5px;
+  box-shadow: 1px 1px 2px rgba(20, 20, 20, 0.4);
+  background-size: 70%;
+  cursor: pointer;
+  transition: transform 100ms ease-in;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.btnNext, .btnPrev {
+  margin: 4px 3px 5px 3px;
+  display: inline-block;
+}
+
+
+.btnPrev {
+  transform: rotateZ(180deg);
+  box-shadow: -1px -1px 2px rgba(20, 20, 20, 0.4);
+
+  &:hover {
+    transform: scale(1.1) rotateZ(180deg);
+  }
+
+  &:active {
+    transform: translateY(1px) rotateZ(180deg);
+  }
+}
+
+.btnRandom {
+  background-image: url("/images/random.png");
+}
+
+.btnExport, .btnImport {
+  padding: 0;
+  outline: 0;
+  width: 32px;
+  height: 32px;
+  margin: 2px 3px 3px 3px;
+  border-radius: 100%;
+  display: inline-block;
+  border: 0;
+  background: #fff url("/images/export.png") no-repeat 6px 5px;
+  box-shadow: 1px 1px 2px rgba(20, 20, 20, 0.4);
+  background-size: 70%;
+  cursor: pointer;
+  transition: transform 100ms ease-in;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+  @media (max-width: 850px) {
+    position: absolute;
+    top: 49px;
+    left: 128px;
+  }
+}
+
+.btnImport {
+  background-image: url("/images/import.png");
+}
+
+
+.btnClear {
+  position: absolute;
+  bottom: 5px;
+  left: 31px;
+  padding: 0;
+  outline: 0;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 10px auto;
+  border-radius: 100%;
+  cursor: pointer;
+
+
+  display: block;
+  border: 0;
+  background: #fff url("/images/clear.png") no-repeat center center;
+  background-size: 100%;
+  box-shadow: 1px 1px 2px rgba(20, 20, 20, 0.4);
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+  @media (max-width: 850px) {
+    left: auto;
+    top: 49px;
+    right: 10px;
+  }
+}
+
+.aboutLink {
+  background: none;
+  border: none;
+  outline: none;
+  display: inline-block;
+  padding: 2px 10px 2px 10px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #d00d0d;
+  transform: rotateZ(90deg) translate(26px, 32px);
+  font-family: 'Architects Daughter', Helvetica, sans-serif;
+
+  &:active {
+    transform: rotateZ(90deg) translate(27px, 32px);
+  }
+}
+
+.fileInput {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  height: -1px;
+  padding: 1px;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+@media (max-width: 680px) {
+  .toolbar {
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  /*
+  .toolbar {
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    width: 42px;
+  }
+  .button {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 5px;
+  }
+  .sep {
+    width: 26px;
+    margin: 5px 0;
+  }
+  .buttonSize {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 5px;
+
+    &.buttonBig {
+      &:before {
+        width: 20px;
+        height: 20px;
+      }
+
+      margin-bottom: 8px;
+    }
+
+    &.buttonMedium {
+      width: 20px;
+      height: 20px;
+      margin-bottom: 8px;
+
+      &:before {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    &.buttonSmall {
+      width: 16px;
+      height: 16px;
+
+      &:before {
+        width: 6px;
+        height: 6px;
+      }
+
+      margin-bottom: 12px;
+    }
+  }
+  .btnUndo, .btnSave, .btnClear {
+    width: 28px;
+    height: 28px;
+    background-size: 65%;
+    margin-bottom: 5px;
+  }
+  .buttonSize {
+  padding: 0;
+  outline: 0;
+  background: transparent;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 10px auto;
+  border-radius: 100%;
+  display: block;
+  border: 0 solid #383838;
+
+  &:before {
+    content: "";
+    margin: auto;
+    display: block;
+    border-radius: 100%;
+    background-color: #757575;
+
+  }
+
+  &.buttonBig {
+    &:before {
+      width: 24px;
+      height: 24px;
+    }
+
+    margin-bottom: 14px;
+  }
+
+  &.buttonMedium {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 16px;
+
+    &:before {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  &.buttonSmall {
+    width: 16px;
+    height: 16px;
+
+    &:before {
+      width: 8px;
+      height: 8px;
+    }
+
+    margin-bottom: 12px;
+  }
+}
+  */
+
+
+}

@@ -1,0 +1,17 @@
+.cardimg {
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  transition: transform 140ms ease-in;
+  background: url("/images/loading.gif") center center no-repeat #fff;
+  background-size: 150%;
+  aspect-ratio: 1;
+}
+
+.cardlink {
+  display: block;
+
+  &:hover img {
+    transform: scale(1.07);
+  }
+}

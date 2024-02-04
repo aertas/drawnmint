@@ -1,0 +1,37 @@
+{
+  "name": "drawnmint-website",
+  "version": "0.1.0",
+  "scripts": {
+    "get-merkle-root": "node ./dapp/merkle.js",
+    "dev": "next dev --port 8082",
+    "build": "next build",
+    "export": "next build && next export",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "author": "DevConcof - Ahmet Ertaş",
+  "license": "MIT",
+  "dependencies": {
+    "@next/font": "^13.0.0",
+    "@openzeppelin/contracts": "^4.8.0",
+    "@popperjs/core": "^2.11.6",
+    "@tippyjs/react": "^4.2.6",
+    "chai": "^4.3.7",
+    "ethers": "^5.7.2",
+    "file-saver": "^2.0.5",
+    "keccak256": "^1.0.6",
+    "merkletreejs": "^0.3.9",
+    "next": "13.0.0",
+    "p5": "^1.5.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.0",
+    "sweetalert2": "^11.6.8",
+    "web3": "^1.7.4"
+  },
+  "devDependencies": {
+    "eslint": "8.22.0",
+    "eslint-config-next": "13.0.0",
+    "sass": "^1.55.0"
+  }
+}

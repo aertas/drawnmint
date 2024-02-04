@@ -13,13 +13,13 @@ exports.createMetadata = async function (hash, tokenid, workData) {
     jsonData.sketchid = Number(workData.imgid);
     jsonData.image = process.env.API_BASE + "/image/thumb/" + hash + ".png";
     jsonData.animation_url = process.env.API_BASE + "/html/" + hash + ".html";
-    jsonData.external_url = process.env.WEB_BASE + "/drawnmint-nfts/" + hash;
+    jsonData.external_url = process.env.WEB_BASE + "/nfts/" + hash;
     jsonData.description = '# ' + imgs[workData.imgid] + '\n\n' +
         '> "' + imgs[workData.imgid] + '" ' + getStory(workData.imgid) + "\n\n" +
         'If you want, you can **paint** one ["' + imgs[workData.imgid] + '"]' +
         '(' + process.env.WEB_BASE + "/?imgid=" + workData.imgid + ') or ' +
         "**examine** the NFT [detail page]" +
-        "(" + process.env.WEB_BASE + "/drawnmint-nfts/" + hash + ").\n\n" +
+        "(" + process.env.WEB_BASE + "/nfts/" + hash + ").\n\n" +
         "---\n\n" +
         "## Developer\n\n" +
         "[@DevConcof](https://twitter.com/devconcof)\n\n" +
